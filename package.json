@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "env-cmd -f src/config/test.env jest --coverage --detectOpenHandles --maxWorkers=2",
     "dev": "env-cmd -f src/config/dev.env nodemon src/app.js"
   },
   "repository": {
