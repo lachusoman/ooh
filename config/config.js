@@ -5,5 +5,12 @@ module.exports = {
     "database": process.env.POSTGRES_DB,
     "host": process.env.POSTGRES_HOST,
     "dialect": "postgres"
+  },
+  "test": {
+    "username": null,
+    "password": null,
+    "database": "main",
+    "host": "localhost",
+    "dialect": "sqlite"
   }
 }

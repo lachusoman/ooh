@@ -20,3 +20,10 @@ This service is used to the product management team maintain records of where ph
 "address":"Sydney,Australia"
 }
 ```
+
+### input for authentication
+
+```
+{"email_id":"user1@ooh.com","password":"u123"}
+
+```

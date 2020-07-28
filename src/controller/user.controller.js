@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const { userInsert } = require("../service/user.service");
+const { userInsert, userLogin } = require("../service/user.service");
 const { validationResult } = require("express-validator");
 const { validate } = require("../middleware/validate");
 
@@ -19,6 +19,17 @@ router.post("/", validate(), function (req, res) {
             }
         });
     }
+});
+
+router.post("/login", (req, res) => {
+    userLogin(req.body, (error, result) => {
+        if (result) {
+            res.setHeader("x-auth-token", result);
+            res.status(200).send(result);
+        } else {
+            res.status(500).send({ error });
+        }
+    });
 });
 
 module.exports = router;
