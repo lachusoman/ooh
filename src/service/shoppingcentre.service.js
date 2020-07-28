@@ -31,3 +31,18 @@ exports.shopcntrGetAll = async function ({ from, to }, callback) {
         callback(error);
     }
 };
+
+exports.shopcntrUpdate = async function ({ shop_id }, { name, address }, callback) {
+    try {
+        await Shop.update(
+            { name, address },
+            { where: { id: shop_id } }
+        ).then(result => {
+            callback(null, result)
+        }).catch(error => {
+            callback(error);
+        })
+    } catch (error) {
+        callback(error);
+    }
+};

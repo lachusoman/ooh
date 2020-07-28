@@ -144,6 +144,37 @@
         }
       }
     },
+    "/shop/{shop_id}": {
+      "put": {
+        "tags": ["Shopping Centre"],
+        "summary": "Update Shopping Centres in system",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateShops",
+        "produces": "application/xml,application/json",
+        "parameters": [
+          {
+            "name": "shop_id",
+            "in": "path",
+            "required": "true",
+            "description": "Update Shopping Centre"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": "true",
+            "description": "Enter Shopping Centre details"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        }
+      }
+    },
     "/asset": {
       "post": {
         "tags": ["Assets"],

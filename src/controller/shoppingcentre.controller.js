@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middleware/auth");
-const { shopcntrInsert, shopcntrGetAll } = require("../service/shoppingcentre.service");
+const { shopcntrInsert, shopcntrGetAll, shopcntrUpdate } = require("../service/shoppingcentre.service");
 const { validationResult } = require("express-validator");
 const { validateShoppingCentre } = require("../middleware/validate");
 
@@ -30,6 +30,23 @@ router.get("/", auth, (req, res) => {
             res.status(400).send({ message: error.errors });
         }
     });
+});
+
+router.put("/:shop_id", auth, validateShoppingCentre(), (req, res) => {
+    const validationErrors = validationResult(req);
+    if (!validationErrors.isEmpty()) {
+        res.status(400).send(`Validation errors: ${JSON.stringify(validationErrors.array())}`);
+    } else {
+        shopcntrUpdate(req.params, req.body, (error, result) => {
+            if (result) {
+                res.status(201).json(result);
+            }
+            else {
+                console.error(`Error: ${JSON.stringify(error)}`);
+                res.status(400).send({ message: error.errors });
+            }
+        });
+    }
 });
 
 module.exports = router;
