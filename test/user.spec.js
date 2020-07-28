@@ -21,8 +21,7 @@ const asset = {
     name: "Board",
     dimension: "300*50",
     location: "Front",
-    status: "active",
-    shop_id: "1"
+    status: "active"
 }
 
 // describe("User Flow", () => {
@@ -57,7 +56,39 @@ const asset = {
 //     });
 // });
 
-describe("Shopping Centre Flow", () => {
+// describe("Shopping Centre Flow", () => {
+//     beforeAll(async () => {
+//         await models.sequelize.sync();
+//     })
+//     afterAll(async () => {
+//         await models.sequelize.close();
+//         await app.close;
+//     });
+
+//     it("Create Shopping Centre & View all by Logged in User", async () => {
+//         const res = await request(app)
+//             .post(`${process.env.API_PREFIX}/user`)
+//             .send(user);
+//         const login_res = await request(app)
+//             .post(`${process.env.API_PREFIX}/user/login`)
+//             .send({ "email_id": user.email_id, "password": user.password })
+//             .then(async (login_res) => {
+//                 const token = JSON.parse(login_res.text).token;
+//                 const shop_create_response = await request(app)
+//                     .post(`${process.env.API_PREFIX}/shop`)
+//                     .set("authorization", token)
+//                     .send(shop);
+//                 expect(shop_create_response.statusCode).toEqual(201);
+
+//                 const view_shop_response = await request(app)
+//                     .get(`${process.env.API_PREFIX}/shop`)
+//                     .set("authorization", token)
+//                 expect(view_shop_response.statusCode).toEqual(200);
+//             });
+//     });
+// });
+
+describe("Asset Flow", () => {
     beforeAll(async () => {
         await models.sequelize.sync();
     })
@@ -66,7 +97,7 @@ describe("Shopping Centre Flow", () => {
         await app.close;
     });
 
-    it("Create Shopping Centre & View all by Logged in User", async () => {
+    it("Create Asset & View all by Logged in User", async () => {
         const res = await request(app)
             .post(`${process.env.API_PREFIX}/user`)
             .send(user);
@@ -78,13 +109,24 @@ describe("Shopping Centre Flow", () => {
                 const shop_create_response = await request(app)
                     .post(`${process.env.API_PREFIX}/shop`)
                     .set("authorization", token)
-                    .send(shop);
-                expect(shop_create_response.statusCode).toEqual(201);
+                    .send(shop).then(async () => {
+                        const view_shop_response = await request(app)
+                            .get(`${process.env.API_PREFIX}/shop`)
+                            .set("authorization", token);
 
-                const view_shop_response = await request(app)
-                    .get(`${process.env.API_PREFIX}/shop`)
-                    .set("authorization", token)
-                expect(view_shop_response.statusCode).toEqual(200);
+                        let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
+                        asset.shop_id = shops.id;
+                        const asset_create_response = await request(app)
+                            .post(`${process.env.API_PREFIX}/asset`)
+                            .set("authorization", token)
+                            .send(asset);
+                        expect(asset_create_response.statusCode).toEqual(201);
+
+                        const view_asset_response = await request(app)
+                            .get(`${process.env.API_PREFIX}/asset`)
+                            .set("authorization", token)
+                        expect(view_asset_response.statusCode).toEqual(200);
+                    })
             });
     });
 });

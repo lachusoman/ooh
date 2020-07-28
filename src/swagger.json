@@ -167,6 +167,37 @@
             }
           }
         }
+      },
+      "get": {
+        "tags": ["Assets"],
+        "summary": "Get all Assets in system",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "viewAssets",
+        "produces": "application/xml,application/json",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": "true",
+            "description": "From Record",
+            "default": "0"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": "true",
+            "description": "To Record",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Assets"
+            }
+          }
+        }
       }
     }
   },

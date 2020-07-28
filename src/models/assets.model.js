@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
         dimension: { type: DataTypes.STRING, allowNull: false },
         location: { type: DataTypes.STRING, allowNull: false },
         status: { type: DataTypes.STRING, allowNull: false },
-        shop_id: { type: DataTypes.INTEGER }
+        shop_id: { type: DataTypes.INTEGER, allowNull: false }
     });
     assets.associate = function (models) {
         assets.belongsTo(models.shoppingcentres, { foreignKey: 'id', sourceKey: 'shop_id' });
