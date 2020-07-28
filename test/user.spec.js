@@ -12,8 +12,23 @@ const user = {
     dob: "1950-10-10",
     address: "NSW,Sydney"
 }
+const shop = {
+    name: "Westfield",
+    address: "Parramatta"
+}
+
+const asset = {
+    name: "Board",
+    dimension: "300*50",
+    location: "Front",
+    status: "active",
+    shop_id: "1"
+}
 
 describe("User Flow", () => {
+    beforeAll(async () => {
+        await models.sequelize.sync();
+    })
     afterAll(async () => {
         await models.sequelize.close();
         await app.close;
@@ -39,5 +54,19 @@ describe("User Flow", () => {
             .post(`${process.env.API_PREFIX}/user/login`)
             .send({ "email_id": user.email_id, "password": user.password });
         expect(res.statusCode).toEqual(200);
+    });
+
+    it("Create Shopping Centre", async () => {
+        const res = await request(app)
+            .post(`${process.env.API_PREFIX}/shop`)
+            .send(shop);
+        expect(res.statusCode).toEqual(201);
+    });
+
+    it("Create Shopping Centre", async () => {
+        const res = await request(app)
+            .post(`${process.env.API_PREFIX}/shop`)
+            .send(shop);
+        expect(res.statusCode).toEqual(201);
     });
 });

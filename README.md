@@ -21,32 +21,26 @@ This service is used to the product management team maintain records of where ph
 }
 ```
 
-### input for user Login
+### input for authentication
 
 ```
 {"email_id":"user1@ooh.com","password":"u123"}
 
 ```
 
-# input for Shopping Centre
+### input for Shopping Centre
 
-```
 {
 "name":"WestField",
 "address":"Parramatta"
 }
-```
 
-# input for Assets
-
-```
+### input for Assets
 
 {
-  "name":"Screen 1",
-  "dimensions" : "300 * 300",
-  "location": "front",
-  "status" : "active",
-  "shop_id":1
+"name":"Screen 1",
+"dimension" : "300 \* 300",
+"location": "front",
+"status" : "active",
+"shop_id":1
 }
-
-```

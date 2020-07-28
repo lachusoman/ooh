@@ -5,11 +5,5 @@ module.exports = (sequelize, DataTypes) => {
         name: { type: DataTypes.STRING, allowNull: false },
         address: { type: DataTypes.STRING, allowNull: false }
     });
-    // shoppingcentres.associate = function (models) {
-    //     shoppingcentres.hasMany(models.assets, {
-    //         foreignKey: 'id',
-    //         sourceKey: 'id'
-    //     });
-    // };
     return shoppingcentres;
 };

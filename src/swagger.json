@@ -118,7 +118,7 @@
         "tags": ["Assets"],
         "summary": "Insert Asset details into system",
         "description": "This can only be done by the logged in user.",
-        "operationId": "insertShop",
+        "operationId": "insertAsset",
         "produces": "application/xml,application/json",
         "parameters": [
           {

@@ -14,7 +14,8 @@ router.post("/", validateUser(), function (req, res) {
                 res.status(201).send(result);
             }
             else {
-                res.status(400).send(error);
+                console.error(`Insert User Error: ${JSON.stringify(error)}`);
+                res.status(400).send({ error });
             }
         });
     }

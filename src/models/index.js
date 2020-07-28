@@ -34,10 +34,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-// db.shoppingcentres = require('./shoppingcentres.model.js')(sequelize, Sequelize);
-// db.assets = require('./assets.model.js')(sequelize, Sequelize);
-
-// db.shoppingcentres.hasMany(db.assets);
-// db.assets.belongsTo(db.shoppingcentres);
-
 module.exports = db;

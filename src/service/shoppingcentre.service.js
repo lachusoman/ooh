@@ -5,7 +5,7 @@ exports.shopcntrInsert = async function (shopDetails, callback) {
         const shop = await Shop.create(shopDetails);
         if (shop) {
             callback(null, {
-                status: "Shoping Centre Details Created Successfully",
+                status: "Shopping Centre Details Created Successfully",
                 name: shop.name
             });
         }
