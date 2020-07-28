@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const misc = require("./health");
-router.use("/", misc);
+const user = require("./user.controller");
+const health = require("./health");
+router.use("/", health);
+router.use("/user", user);
 
 module.exports = router;
