@@ -28,11 +28,25 @@ This service is used to the product management team maintain records of where ph
 
 ```
 
-# input for Shoping Centre
+# input for Shopping Centre
 
 ```
 {
 "name":"WestField",
 "address":"Parramatta"
 }
+```
+
+# input for Assets
+
+```
+
+{
+  "name":"Screen 1",
+  "dimensions" : "300 * 300",
+  "location": "front",
+  "status" : "active",
+  "shop_id":1
+}
+
 ```

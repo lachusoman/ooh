@@ -112,6 +112,31 @@
           }
         }
       }
+    },
+    "/asset": {
+      "post": {
+        "tags": ["Assets"],
+        "summary": "Insert Asset details into system",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "insertShop",
+        "produces": "application/xml,application/json",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": "true",
+            "description": "Enter Asset details"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Assets"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
