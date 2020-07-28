@@ -64,37 +64,6 @@
       }
     },
     "/user": {
-      "get": {
-        "tags": ["Users"],
-        "summary": "Get all users in system",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "viewUsers",
-        "produces": "application/xml,application/json",
-        "parameters": [
-          {
-            "name": "from",
-            "in": "query",
-            "required": "true",
-            "description": "From Record",
-            "default": "0"
-          },
-          {
-            "name": "to",
-            "in": "query",
-            "required": "true",
-            "description": "To Record",
-            "default": "10"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Users"
-            }
-          }
-        }
-      },
       "post": {
         "tags": ["Users"],
         "summary": "Insert users into system",
@@ -117,74 +86,28 @@
             }
           }
         }
-      },
-      "put": {
-        "tags": ["Users"],
-        "summary": "Update users into system",
+      }
+    },
+    "/shop": {
+      "post": {
+        "tags": ["ShoppingCentres"],
+        "summary": "Insert Shopping centre details into system",
         "description": "This can only be done by the logged in user.",
-        "operationId": "updateUser",
+        "operationId": "insertShop",
         "produces": "application/xml,application/json",
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Update user"
+            "description": "Enter Shopping Centre details"
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/Users"
-            }
-          }
-        }
-      }
-    },
-    "/user/{email_id}": {
-      "delete": {
-        "tags": ["Users"],
-        "summary": "Delete users in system",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "deleteUser",
-        "produces": "application/xml,application/json",
-        "parameters": [
-          {
-            "name": "email_id",
-            "in": "path",
-            "required": "true",
-            "description": "Delete user"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Users"
-            }
-          }
-        }
-      },
-      "get": {
-        "tags": ["Users"],
-        "summary": "View my details",
-        "description": "This can only be done by the logged in user.",
-        "operationId": "viewUser",
-        "produces": "application/xml,application/json",
-        "parameters": [
-          {
-            "name": "email_id",
-            "in": "path",
-            "required": "true",
-            "description": "View my Details"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/Users"
+              "$ref": "#/definitions/Shops"
             }
           }
         }

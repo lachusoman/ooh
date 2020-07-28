@@ -32,9 +32,8 @@ exports.userLogin = function ({ email_id, password }, callback) {
 exports.userInsert = function (userData, callback) {
   bcrypt.hash(userData.password, Number(process.env.SALT), async function (err, hash) {
     if (hash) {
-      let transaction = null;
       try {
-        const user = await User.create({ ...userData, password: hash }, { transaction });
+        const user = await User.create({ ...userData, password: hash });
         // console.log(`Created user:${JSON.stringify(user)}`);
         if (user) {
           callback(null, {
@@ -44,13 +43,7 @@ exports.userInsert = function (userData, callback) {
           });
         }
       } catch (error) {
-        const err = error.errors;
-        let errorMessage = null;
-        if (err) {
-          err.forEach(element => errorMessage = element.message);
-          return callback(errorMessage);
-        }
-        return callback(error);
+        callback(error);
       }
     } else {
       callback(err);
