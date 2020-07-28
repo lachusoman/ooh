@@ -13,3 +13,21 @@ exports.shopcntrInsert = async function (shopDetails, callback) {
         callback(error);
     }
 }
+
+exports.shopcntrGetAll = async function ({ from, to }, callback) {
+    const to_record = to || 50;
+    const offset = from || 0;
+    const limit = Math.min(25, to_record - offset);
+    try {
+        await Shop.findAndCountAll({
+            limit, offset, order: [ [ 'id', 'ASC' ] ]
+        }).then((shopDetails) => {
+            callback(null, shopDetails)
+        }).catch(error => {
+            console.log(`View ShoppingCentre catch(Clinic): ${JSON.stringify(error)} `);
+            callback(error);
+        })
+    } catch (error) {
+        callback(error);
+    }
+};
