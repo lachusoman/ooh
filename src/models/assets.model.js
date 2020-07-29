@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
         name: { type: DataTypes.STRING, allowNull: false },
         dimension: { type: DataTypes.STRING, allowNull: false },
         location: { type: DataTypes.STRING, allowNull: false },
-        status: { type: DataTypes.STRING, allowNull: false },
+        status: { type: DataTypes.ENUM("A", "I"), allowNull: false },
         shop_id: { type: DataTypes.INTEGER, allowNull: false }
     });
     assets.associate = function (models) {
