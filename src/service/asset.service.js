@@ -40,7 +40,7 @@ exports.assetGetAll = async function ({ from, to }, callback) {
   }
 };
 
-exports.assetUpdate = async function ({ asset_id }, { name, dimension, location, status, shop_id }, user_id, callback) {
+exports.assetUpdate = async function ({ asset_id }, { name, dimension, location, status, shoppingcentreId }, user_id, callback) {
   try {
     const asset = await Asset.findOne({ where: { id: asset_id } })
     if (!asset) {
@@ -48,7 +48,7 @@ exports.assetUpdate = async function ({ asset_id }, { name, dimension, location,
     }
     const operation = (transaction) => {
       Asset.update(
-        { name, dimension, location, status, shop_id },
+        { name, dimension, location, status, shoppingcentreId },
         { where: { id: asset_id }, transaction });
       return asset;
     }

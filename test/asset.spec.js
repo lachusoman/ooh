@@ -62,7 +62,7 @@ describe("Asset Flow", () => {
             expect(view_shop_response.statusCode).toEqual(200);
 
             let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
-            asset.shop_id = shops.id;
+            asset.shoppingcentreId = shops.id;
 
             const asset_create_response = await request(app)
               .post(`${process.env.API_PREFIX}/asset`)

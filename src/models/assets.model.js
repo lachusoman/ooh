@@ -6,11 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         dimension: { type: DataTypes.STRING, allowNull: false },
         location: { type: DataTypes.STRING, allowNull: false },
         status: { type: DataTypes.ENUM("A", "I"), allowNull: false },
-        shop_id: { type: DataTypes.INTEGER, allowNull: false }
+        shoppingcentreId: { type: DataTypes.INTEGER, allowNull: false }
     });
     assets.associate = function (models) {
-        assets.belongsTo(models.shoppingcentres, { foreignKey: 'shop_id' });
+        assets.belongsTo(models.shoppingcentres);
     };
     return assets;
 };
-
