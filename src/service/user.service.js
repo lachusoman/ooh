@@ -12,12 +12,7 @@ exports.userLogin = function ({ email_id, password }, callback) {
       if (result) {
         let user_clone = { email_id: user.email_id, user_type: user.user_type }
         const authToken = generateAuthToken(user_clone);
-        const loginResult = {
-          token: authToken,
-          email_id: user.email_id,
-          first_name: user.first_name,
-          last_name: user.last_name,
-        }
+        const loginResult = authToken;
         return callback(null, loginResult);
       } else {
         callback(`No such user or Incorrect Password`);

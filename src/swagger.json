@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "version": "1.0.0",
-    "title": "oOh Media Inventory Service",
+    "title": "oOh! Media Inventory Service",
     "description": "This service is used to the product management team maintain records of where physical display panels are installed in shopping centres ",
     "license": {
       "name": "MIT",
@@ -50,8 +50,8 @@
             "name": "email_id",
             "in": "body",
             "required": "true",
-            "description": "Enter e-mail id & password e.g. {\"email_id\":\"user@ooh.com\",\"password\":\"u123\"}",
-            "default": "{}"
+            "description": "Enter e-mail id & password \n e.g.\n {\"email_id\":\"user@ooh.com\",\"password\":\"u123\"}",
+            "default": {}
           }
         ],
         "responses": {
@@ -76,7 +76,7 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Email_id,Password,First Name,Last Name,User Type('A' for ADMIN & 'U' for USER),Contact Number,DOB & Address \n e.g. {\"email_id\": \"user@ooh.com\",\"password\":\"u123\",\"first_name\":\"User\",\"last_name\":\"1\",\"user_type\": \"U\",\"contact_no\": \"+61000000000\",\"dob\":\"1970-01-01\",\"address\":\"Sydney,Australia\"}",
+            "description": "Enter Email_id,Password,First Name,Last Name,User Type('A' for ADMIN & 'U' for USER),Contact Number,DOB & Address \n e.g.\n {\"email_id\": \"user@ooh.com\",\"password\":\"u123\",\"first_name\":\"User\",\"last_name\":\"1\",\"user_type\": \"U\",\"contact_no\": \"+61000000000\",\"dob\":\"1970-01-01\",\"address\":\"Sydney,Australia\"}",
             "default": "{}"
           }
         ],
@@ -102,7 +102,7 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Shopping Centre Name & Address e.g. { \"name\":\"WestField\",\"address\":\"Parramatta\"}",
+            "description": "Enter Shopping Centre Name & Address \n e.g.\n { \"name\":\"WestField\",\"address\":\"Parramatta\"}",
             "default": "{}"
           }
         ],
@@ -165,7 +165,7 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Shopping Centre details to be updated e.g.{ \"name\":\"WestField\",\"address\":\"Town Hall\"} ",
+            "description": "Enter Shopping Centre details to be updated \n e.g.\n{ \"name\":\"WestField\",\"address\":\"Town Hall\"} ",
             "default": "{}"
           }
         ],
@@ -191,8 +191,8 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Asset Name,Dimension,Location,Status(A for Active & I for Inactive) and Associated ShoppingCentre ID \n e.g. {\"name\":\"Screen 1\",\"dimension\" : \"300 * 300\",\"location\": \"front\", \"status\" : \"active\", \"shoppingcentreId\":1 }",
-            "default": "{}"
+            "description": "Enter Asset Name,Dimension,Location,Status(A for Active & I for Inactive) and Associated ShoppingCentre ID \n e.g.\n { \"name\": \"Screen 1\", \"dimension\": \"300 * 300\", \"location\": \"front\", \"status\": \"A\", \"shoppingcentreId\": 1 } ",
+            "default": {}
           }
         ],
         "responses": {
@@ -254,8 +254,8 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Asset Details to be updated e.g. {\"name\":\"Screen 1\",\"dimension\" : \"300 * 300\",\"location\": \"front\", \"status\" : \"active\", \"shoppingcentreId\":1 }",
-            "default": "{}"
+            "description": "Enter Asset Details to be updated \ne.g.\n {\"name\":\"Screen 1\",\"dimension\" : \"300 * 300\",\"location\": \"front\", \"status\" : \"active\", \"shoppingcentreId\":1 }",
+            "default": {}
           }
         ],
         "responses": {
@@ -267,40 +267,6 @@
           }
         }
       }
-    }
-  },
-  "definitions": {
-    "User": {
-      "required": ["email", "_id"],
-      "properties": {
-        "email_id": {
-          "type": "string",
-          "uniqueItems": true
-        },
-        "first_name": {
-          "type": "string"
-        },
-        "last_name": {
-          "type": "string"
-        },
-        "user_type": {
-          "type": "string",
-          "uniqueItems": true
-        },
-        "dob": {
-          "type": "date"
-        },
-        "address": {
-          "type": "string"
-        },
-        "contact_no": {
-          "type": "string"
-        }
-      }
-    },
-    "Users": {
-      "type": "array",
-      "$ref": "#/definitions/User"
     }
   }
 }
