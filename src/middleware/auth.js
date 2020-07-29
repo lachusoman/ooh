@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { decode_token } = require("../utility/token");
+const { decode_token } = require("../utility/token.util");
 
 module.exports = function (req, res, next) {
   const token = req.headers[ "x-access-token" ] || req.headers[ "authorization" ];

@@ -1,10 +1,11 @@
 const models = require("../models");
 const Shop = models.shoppingcentres;
-const Audit = models.audit;
-const sequelize = models.sequelize;
+const { auditedTxn } = require("../utility/audit.util");
 exports.shopcntrInsert = async function (shopDetails, user_id, callback) {
   try {
-    const operation = (transaction) => Shop.create(shopDetails, { transaction });
+    const operation = (transaction) => {
+      return Shop.create(shopDetails, { transaction });
+    }
     const shop = auditedTxn(operation, { user_id, entity: 'ShoppingCentre_Create' });
     if (shop) {
       callback(null, {
@@ -14,26 +15,6 @@ exports.shopcntrInsert = async function (shopDetails, user_id, callback) {
     }
   } catch (error) {
     callback(error);
-  }
-}
-
-async function auditedTxn(operation, { user_id, entity }) {
-  let transaction;
-  try {
-    transaction = await sequelize.transaction();
-    const shop_created = await operation(transaction);
-    const auditDetails = {
-      entity,
-      entity_id: shop_created.id,
-      user_id
-    }
-    const audit_created = await Audit.create(auditDetails);
-    await transaction.commit();
-    return shop_created;
-  } catch (error) {
-    console.log(error);
-    await transaction.rollback();
-    return error;
   }
 }
 
@@ -55,28 +36,25 @@ exports.shopcntrGetAll = async function ({ from, to }, callback) {
   }
 };
 
-exports.shopcntrUpdate = async function ({ shop_id }, { name, address }, callback) {
-  let transaction = null;
+exports.shopcntrUpdate = async function ({ shop_id }, { name, address }, user_id, callback) {
   try {
-    transaction = await sequelize.transaction();
-    await Shop.findOne({ where: { id: shop_id } })
-      .then(async shop => {
-        if (shop) {
-          await Shop.update(
-            { name, address },
-            { where: { id: shop_id } }
-          ).then(result => {
-            callback(null, result)
-          }).catch(error => {
-            callback(error);
-          })
-        } else {
-          throw ('Shopping Centre ID does not exist');
-        }
-      }).catch(err => {
-        callback(err);
-      })
+    const shop = await Shop.findOne({ where: { id: shop_id } })
+    if (!shop) {
+      return callback('Shopping Centre ID does not exist');
+    }
+    const operation = (transaction) => {
+      Shop.update({ name, address }, { where: { id: shop_id }, transaction });
+      return shop;
+    }
+    const shopUpdated = await auditedTxn(operation, { user_id, entity: 'ShoppingCentre_Update' });
+    if (shopUpdated) {
+      callback(null, {
+        status: "SUCCESS",
+        msg: "Shopping Centre Details Updated Successfully",
+      });
+    }
   } catch (error) {
+    console.log(`Update ShoppingCentre Error:${error}`);
     callback(error);
   }
 };

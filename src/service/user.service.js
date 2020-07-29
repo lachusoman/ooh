@@ -1,6 +1,6 @@
 const models = require("../models");
 const User = models.user;
-const { generateAuthToken } = require("../utility/token");
+const { generateAuthToken } = require("../utility/token.util");
 const bcrypt = require("bcryptjs");
 
 exports.userLogin = function ({ email_id, password }, callback) {

@@ -10,7 +10,8 @@ router.post("/", auth, validateAsset(), function (req, res) {
     if (!validationErrors.isEmpty()) {
         res.status(400).send(`Validation errors: ${JSON.stringify(validationErrors.array())}`);
     } else {
-        assetInsert(req.body, (error, result) => {
+        const user_id = req.user.email_id;
+        assetInsert(req.body, user_id, (error, result) => {
             if (result) {
                 res.status(201).send(result);
             }
@@ -38,7 +39,8 @@ router.put("/:asset_id", auth, validateAsset(), (req, res) => {
     if (!validationErrors.isEmpty()) {
         res.status(400).send(`Validation errors: ${JSON.stringify(validationErrors.array())}`);
     } else {
-        assetUpdate(req.params, req.body, (error, result) => {
+        const user_id = req.user.email_id;
+        assetUpdate(req.params, req.body, user_id, (error, result) => {
             if (result) {
                 res.status(201).json(result);
             }

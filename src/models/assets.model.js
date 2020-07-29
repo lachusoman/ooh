@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
         shop_id: { type: DataTypes.INTEGER, allowNull: false }
     });
     assets.associate = function (models) {
-        assets.belongsTo(models.shoppingcentres, { foreignKey: 'id', sourceKey: 'shop_id' });
+        assets.belongsTo(models.shoppingcentres, { foreignKey: 'shop_id' });
     };
     return assets;
 };
+

@@ -38,7 +38,8 @@ router.put("/:shop_id", auth, validateShoppingCentre(), (req, res) => {
     if (!validationErrors.isEmpty()) {
         res.status(400).send(`Validation errors: ${JSON.stringify(validationErrors.array())}`);
     } else {
-        shopcntrUpdate(req.params, req.body, (error, result) => {
+        const user_id = req.user.email_id;
+        shopcntrUpdate(req.params, req.body, user_id, (error, result) => {
             if (result) {
                 res.status(201).json(result);
             } else {
