@@ -6,7 +6,7 @@ exports.shopcntrInsert = async function (shopDetails, user_id, callback) {
     const operation = (transaction) => {
       return Shop.create(shopDetails, { transaction });
     }
-    const shop = auditedTxn(operation, { user_id, entity: 'ShoppingCentre_Create' });
+    const shop = await auditedTxn(operation, { user_id, entity: 'ShoppingCentre_Create' });
     if (shop) {
       callback(null, {
         status: "Shopping Centre Details Created Successfully",

@@ -14,8 +14,7 @@ router.post("/", auth, validateAsset(), function (req, res) {
         assetInsert(req.body, user_id, (error, result) => {
             if (result) {
                 res.status(201).send(result);
-            }
-            else {
+            } else {
                 console.log(`Internal Error:${JSON.stringify(error)}`);
                 res.status(400).send(error.msg);
             }

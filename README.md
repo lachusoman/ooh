@@ -42,5 +42,5 @@ This service is used to the product management team maintain records of where ph
 "dimension" : "300 \* 300",
 "location": "front",
 "status" : "active",
-"shop_id":1
+"shoppingcentreId":1
 }

@@ -13,13 +13,12 @@ module.exports.auditedTxn = async (operation, { user_id, entity }) => {
             user_id
         }
         await Audit.create(auditDetails, { transaction });
-        const committed = await transaction.commit();
-        console.log(`committed:${committed}`)
+        await transaction.commit();
         return entityCreated;
     } catch (error) {
         console.log(`Audit error:${error}`);
         await transaction.rollback();
-        return error;
+        throw error;
     }
 }
 

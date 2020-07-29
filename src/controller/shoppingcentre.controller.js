@@ -14,8 +14,7 @@ router.post("/", auth, validateShoppingCentre(), function (req, res) {
         shopcntrInsert(req.body, user_id, (error, result) => {
             if (result) {
                 res.status(201).send(result);
-            }
-            else {
+            } else {
                 res.status(400).send(error);
             }
         });

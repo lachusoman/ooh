@@ -50,7 +50,8 @@
             "name": "email_id",
             "in": "body",
             "required": "true",
-            "description": "Enter e-mail id & password"
+            "description": "Enter e-mail id & password e.g. {\"email_id\":\"user@ooh.com\",\"password\":\"u123\"}",
+            "default": "{}"
           }
         ],
         "responses": {
@@ -75,7 +76,8 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter user"
+            "description": "Enter Email_id,Password,First Name,Last Name,User Type('A' for ADMIN & 'U' for USER),Contact Number,DOB & Address \n e.g. {\"email_id\": \"user@ooh.com\",\"password\":\"u123\",\"first_name\":\"User\",\"last_name\":\"1\",\"user_type\": \"U\",\"contact_no\": \"+61000000000\",\"dob\":\"1970-01-01\",\"address\":\"Sydney,Australia\"}",
+            "default": "{}"
           }
         ],
         "responses": {
@@ -100,7 +102,8 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Shopping Centre details"
+            "description": "Enter Shopping Centre Name & Address e.g. { \"name\":\"WestField\",\"address\":\"Parramatta\"}",
+            "default": "{}"
           }
         ],
         "responses": {
@@ -156,13 +159,14 @@
             "name": "shop_id",
             "in": "path",
             "required": "true",
-            "description": "Update Shopping Centre"
+            "description": "Enter Shopping Centre ID to be updated"
           },
           {
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Shopping Centre details"
+            "description": "Enter Shopping Centre details to be updated e.g.{ \"name\":\"WestField\",\"address\":\"Town Hall\"} ",
+            "default": "{}"
           }
         ],
         "responses": {
@@ -187,7 +191,8 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Asset details"
+            "description": "Enter Asset Name,Dimension,Location,Status(A for Active & I for Inactive) and Associated ShoppingCentre ID \n e.g. {\"name\":\"Screen 1\",\"dimension\" : \"300 * 300\",\"location\": \"front\", \"status\" : \"active\", \"shoppingcentreId\":1 }",
+            "default": "{}"
           }
         ],
         "responses": {
@@ -243,13 +248,14 @@
             "name": "asset_id",
             "in": "path",
             "required": "true",
-            "description": "Update Asset"
+            "description": "Enter Asset ID to be updated"
           },
           {
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Asset details"
+            "description": "Enter Asset Details to be updated e.g. {\"name\":\"Screen 1\",\"dimension\" : \"300 * 300\",\"location\": \"front\", \"status\" : \"active\", \"shoppingcentreId\":1 }",
+            "default": "{}"
           }
         ],
         "responses": {

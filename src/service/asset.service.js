@@ -2,12 +2,12 @@ const models = require("../models");
 const { auditedTxn } = require("../utility/audit.util");
 const Asset = models.assets;
 const errorMsg = 'Unexpected error';
-exports.assetInsert = function (assetDetails, user_id, callback) {
+exports.assetInsert = async function (assetDetails, user_id, callback) {
   try {
     const operation = (transaction) => {
       return Asset.create(assetDetails, { transaction });
     }
-    const asset = auditedTxn(operation, { user_id, entity: 'Asset_Create' });
+    const asset = await auditedTxn(operation, { user_id, entity: 'Asset_Create' });
     if (asset) {
       callback(null, {
         status: "Asset Created Successfully",
