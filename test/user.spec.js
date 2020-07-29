@@ -14,7 +14,7 @@ const user = {
   address: "NSW,Sydney"
 }
 
-describe("User Flow", () => {
+describe("End to End User Flow ", () => {
   beforeAll(async () => {
     await models.sequelize.sync();
   })
@@ -23,7 +23,8 @@ describe("User Flow", () => {
     await app.close;
   });
 
-  it("Login Failure::User not found", async () => {
+
+  it("Login Failure - User not found", async () => {
     const res = await request(app)
       .post(`${process.env.API_PREFIX}/user/login`)
       .send({ "email_id": user.email_id, "password": user.password });
