@@ -31,3 +31,18 @@ exports.assetGetAll = async function ({ from, to }, callback) {
         callback(error);
     }
 };
+
+exports.assetUpdate = async function ({ asset_id }, { name, dimension, location, status, shop_id }, callback) {
+    try {
+        await Asset.update(
+            { name, dimension, location, status, shop_id },
+            { where: { id: asset_id } }
+        ).then(result => {
+            callback(null, result)
+        }).catch(error => {
+            callback(error);
+        })
+    } catch (error) {
+        callback(error);
+    }
+};

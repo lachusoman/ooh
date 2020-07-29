@@ -230,6 +230,37 @@
           }
         }
       }
+    },
+    "/asset/{asset_id}": {
+      "put": {
+        "tags": ["Asset"],
+        "summary": "Update Assets in system",
+        "description": "This can only be done by the logged in user.",
+        "operationId": "updateShops",
+        "produces": "application/xml,application/json",
+        "parameters": [
+          {
+            "name": "asset_id",
+            "in": "path",
+            "required": "true",
+            "description": "Update Asset"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": "true",
+            "description": "Enter Asset details"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Assets"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {

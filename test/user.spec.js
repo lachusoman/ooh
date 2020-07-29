@@ -30,6 +30,13 @@ const asset = {
   status: "active"
 }
 
+const updated_asset = {
+  name: "Screen",
+  dimension: "300*50",
+  location: "Front",
+  status: "active"
+}
+
 // describe("User Flow", () => {
 //     beforeAll(async () => {
 //         await models.sequelize.sync();
@@ -137,6 +144,43 @@ const asset = {
 //   });
 // });
 
+// describe("Shop Update Flow", () => {
+//   beforeAll(async () => {
+//     await models.sequelize.sync();
+//   })
+//   afterAll(async () => {
+//     await models.sequelize.close();
+//     await app.close;
+//   });
+
+//   it("Create Shop & Update it by Logged in User", async () => {
+//     const res = await request(app)
+//       .post(`${process.env.API_PREFIX}/user`)
+//       .send(user);
+//     const login_res = await request(app)
+//       .post(`${process.env.API_PREFIX}/user/login`)
+//       .send({ "email_id": user.email_id, "password": user.password })
+//       .then(async (login_res) => {
+//         const token = JSON.parse(login_res.text).token;
+//         await request(app)
+//           .post(`${process.env.API_PREFIX}/shop`)
+//           .set("authorization", token)
+//           .send(shop).then(async () => {
+//             const view_shop_response = await request(app)
+//               .get(`${process.env.API_PREFIX}/shop`)
+//               .set("authorization", token);
+//             let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
+//             console.log(`shops:${process.env.API_PREFIX}/shop/${shops.id}`);
+//             const shop_update_response = await request(app)
+//               .put(`${process.env.API_PREFIX}/shop/${shops.id}`)
+//               .set("authorization", token)
+//               .send(updated_shop)
+//             expect(shop_update_response.statusCode).toEqual(201);
+//           })
+//       })
+//   })
+// });
+
 describe("Shop Update Flow", () => {
   beforeAll(async () => {
     await models.sequelize.sync();
@@ -146,7 +190,7 @@ describe("Shop Update Flow", () => {
     await app.close;
   });
 
-  it("Create Shop & Update it by Logged in User", async () => {
+  it("Create Shop,Asset & Update Asset by Logged in User", async () => {
     const res = await request(app)
       .post(`${process.env.API_PREFIX}/user`)
       .send(user);
@@ -163,12 +207,27 @@ describe("Shop Update Flow", () => {
               .get(`${process.env.API_PREFIX}/shop`)
               .set("authorization", token);
             let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
-            console.log(`shops:${process.env.API_PREFIX}/shop/${shops.id}`);
-            const shop_update_response = await request(app)
-              .put(`${process.env.API_PREFIX}/shop/${shops.id}`)
+            asset.shop_id = shops.id;
+
+            await request(app)
+              .post(`${process.env.API_PREFIX}/asset`)
               .set("authorization", token)
-              .send(updated_shop)
-            expect(shop_update_response.statusCode).toEqual(201);
+              .send(asset);
+            const view_asset_response = await request(app)
+              .get(`${process.env.API_PREFIX}/asset`)
+              .set("authorization", token)
+
+            const assets = JSON.parse(view_asset_response.text).rows[ 0 ];
+
+            const asset_update_response = await request(app)
+              .put(`${process.env.API_PREFIX}/asset/${assets.id}`)
+              .set("authorization", token)
+              .send(updated_asset)
+            expect(asset_update_response.statusCode).toEqual(201);
+            const view_asset = await request(app)
+              .get(`${process.env.API_PREFIX}/asset`)
+              .set("authorization", token)
+            console.log(`assets updated:${JSON.stringify(view_asset.text)}`)
           })
       })
   })
