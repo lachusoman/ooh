@@ -22,13 +22,20 @@ exports.assetInsert = async function (assetDetails, user_id, callback) {
     });
   }
 };
-exports.assetGetAll = async function ({ from, to }, callback) {
+exports.assetGetAll = async function ({ from, to, asset_name, asset_status }, callback) {
   const to_record = to || 50;
   const offset = from || 0;
   const limit = Math.min(25, to_record - offset);
   try {
+    const where = {};
+    if (asset_name) {
+      where.name = asset_name;
+    }
+    if (asset_status) {
+      where.status = asset_status;
+    }
     await Asset.findAndCountAll({
-      limit, offset, order: [ [ 'id', 'ASC' ] ]
+      limit, offset, where, order: [ [ 'id', 'ASC' ] ]
     }).then((assetDetails) => {
       callback(null, assetDetails)
     }).catch(error => {

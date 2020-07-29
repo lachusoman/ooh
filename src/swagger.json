@@ -224,6 +224,16 @@
             "required": "true",
             "description": "To Record",
             "default": "10"
+          },
+          {
+            "name": "asset_name",
+            "in": "query",
+            "description": "Please enter Asset Name"
+          },
+          {
+            "name": "asset_status",
+            "in": "query",
+            "description": "Please enter associated Shopping Centre"
           }
         ],
         "responses": {
