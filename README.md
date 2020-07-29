@@ -44,3 +44,24 @@ This service is used to the product management team maintain records of where ph
 "status" : "active",
 "shoppingcentreId":1
 }
+
+Notes:
+
+express-validor
+Validation errors: [{"msg":"Please provide name","param":"name","location":"body"},{"msg":"Please provide address","param":"address","location":"body"}]
+
+JWT Token
+email_id, user_type (for future enhancement to support role based access)
+
+Logger could have used Bunyan instead
+
+Negative cases in testing
+End to End testing only done.
+
+Error message ideally will not contain any info related to db for e.g
+
+health endpoint for load balancer.
+
+number of parameters will
+
+update requires all attributes mandatory. explain why.

@@ -36,7 +36,7 @@ exports.shopcntrGetAll = async function ({ from, to }, callback) {
   }
 };
 
-exports.shopcntrUpdate = async function ({ shop_id }, { name, address }, user_id, callback) {
+exports.shopcntrUpdate = async function ({ shop_id, name, address }, user_id, callback) {
   try {
     const shop = await Shop.findOne({ where: { id: shop_id } })
     if (!shop) {

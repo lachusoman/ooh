@@ -34,24 +34,23 @@ exports.assetGetAll = async function ({ from, to, asset_name, asset_status }, ca
     if (asset_status) {
       where.status = asset_status;
     }
-    await Asset.findAndCountAll({
+    const assetDetails = await Asset.findAndCountAll({
       limit, offset, where, order: [ [ 'id', 'ASC' ] ]
-    }).then((assetDetails) => {
-      callback(null, assetDetails)
-    }).catch(error => {
-      console.log(`View Asset catch(Clinic): ${JSON.stringify(error)} `);
-      callback(error);
-    })
+    });
+    callback(null, assetDetails);
   } catch (error) {
-    callback(error);
+    callback({
+      msg: error.name === 'SequelizeDatabaseError' ? 'Search Item provided does not exist' : errorMsg,
+      error
+    });
   }
 };
 
-exports.assetUpdate = async function ({ asset_id }, { name, dimension, location, status, shoppingcentreId }, user_id, callback) {
+exports.assetUpdate = async function ({ asset_id, name, dimension, location, status, shoppingcentreId }, user_id, callback) {
   try {
     const asset = await Asset.findOne({ where: { id: asset_id } })
     if (!asset) {
-      return callback('Asset ID does not exist');
+      return callback({ msg: 'Asset ID does not exist' });
     }
     const operation = (transaction) => {
       Asset.update(
@@ -68,7 +67,9 @@ exports.assetUpdate = async function ({ asset_id }, { name, dimension, location,
       });
     }
   } catch (error) {
-    console.log(`Update Asset Error:${error}`);
-    callback(error);
+    callback({
+      msg: error.name,
+      error
+    });
   }
 };

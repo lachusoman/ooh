@@ -37,11 +37,12 @@ describe("User Flow", () => {
     expect(res.statusCode).toEqual(201);
   });
 
-  it("Login Success", async () => {
+  it("Login Success", async (done) => {
     const res = await request(app)
       .post(`${process.env.API_PREFIX}/user/login`)
       .send({ "email_id": user.email_id, "password": user.password });
     expect(res.statusCode).toEqual(200);
+    done();
   });
 });
 

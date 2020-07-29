@@ -28,7 +28,7 @@ router.get("/", auth, (req, res) => {
             res.send(result);
         } else {
             console.error(`Error: ${JSON.stringify(error)}`);
-            res.status(400).send({ message: error.errors });
+            res.status(400).send({ message: error.msg });
         }
     });
 });
@@ -39,13 +39,15 @@ router.put("/:asset_id", auth, validateAsset(), (req, res) => {
         res.status(400).send(`Validation errors: ${JSON.stringify(validationErrors.array())}`);
     } else {
         const user_id = req.user.email_id;
-        assetUpdate(req.params, req.body, user_id, (error, result) => {
+        const { asset_id } = req.params
+        const assetDetails = req.body
+        assetUpdate({ asset_id, ...assetDetails }, user_id, (error, result) => {
             if (result) {
                 res.status(201).json(result);
             }
             else {
                 console.error(`Error: ${JSON.stringify(error)}`);
-                res.status(400).send({ message: error });
+                res.status(400).send({ message: error.msg });
             }
         });
     }
