@@ -32,10 +32,8 @@ exports.userLogin = function ({ email_id, password }, callback) {
 exports.userInsert = function (userData, callback) {
   bcrypt.hash(userData.password, Number(process.env.SALT), async function (err, hash) {
     if (hash) {
-      let transaction = null;
       try {
-        const user = await User.create({ ...userData, password: hash }, { transaction });
-        // console.log(`Created user:${JSON.stringify(user)}`);
+        const user = await User.create({ ...userData, password: hash });
         if (user) {
           callback(null, {
             status: "Record Created Successfully",

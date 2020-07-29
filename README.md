@@ -10,7 +10,7 @@ This service is used to the product management team maintain records of where ph
 
 ```
 {
-"email_id": "user1@ooh.com",
+"email_id": "user@ooh.com",
 "password":"u123",
 "first_name":"User",
 "last_name":"1",
@@ -24,7 +24,7 @@ This service is used to the product management team maintain records of where ph
 ### input for authentication
 
 ```
-{"email_id":"user1@ooh.com","password":"u123"}
+{"email_id":"user@ooh.com","password":"u123"}
 
 ```
 
