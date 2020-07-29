@@ -14,7 +14,7 @@ router.post("/", validateUser(), function (req, res) {
                 res.status(201).send(result);
             }
             else {
-                console.error(`Insert User Error: ${JSON.stringify(error)}`);
+                console.error(`Create User Error: ${JSON.stringify(error)}`);
                 res.status(400).send({ error });
             }
         });
@@ -27,7 +27,8 @@ router.post("/login", (req, res) => {
             res.setHeader("x-auth-token", result);
             res.status(200).send(result);
         } else {
-            res.status(500).send({ error });
+            console.log(`Login Error:${error}`);
+            res.status(500).send(error.msg);
         }
     });
 });

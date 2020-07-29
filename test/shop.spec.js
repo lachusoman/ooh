@@ -39,7 +39,7 @@ describe("Shopping Centre Flow", () => {
             .post(`${process.env.API_PREFIX}/user/login`)
             .send({ "email_id": user.email_id, "password": user.password })
             .then(async (login_res) => {
-                const token = JSON.parse(login_res.text).token;
+                const token = login_res.text;
                 const shop_create_response = await request(app)
                     .post(`${process.env.API_PREFIX}/shop`)
                     .set("authorization", token)

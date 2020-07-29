@@ -8,19 +8,15 @@ exports.userLogin = function ({ email_id, password }, callback) {
     where: { email_id }
   }).then((user) => {
     bcrypt.compare(password, user.password, async function (error, result) {
-      //If passwords match,check user_type
       if (result) {
-        let user_clone = { email_id: user.email_id, user_type: user.user_type }
-        const authToken = generateAuthToken(user_clone);
-        const loginResult = authToken;
-        return callback(null, loginResult);
+        const authToken = generateAuthToken(user);
+        return callback(null, authToken);
       } else {
-        callback(`No such user or Incorrect Password`);
+        callback({ msg: `Incorrect Password`, error });
       }
     });
   }).catch((error) => {
-    console.log(`Catch Login Error: ${error}`);
-    callback(`No such user or Incorrect Password`);
+    callback({ msg: `Invalid Email-id`, error });
   });
 };
 
@@ -31,9 +27,8 @@ exports.userInsert = function (userData, callback) {
         const user = await User.create({ ...userData, password: hash });
         if (user) {
           callback(null, {
-            status: "Record Created Successfully",
-            email_id: user.email_id,
-            user_type: user.user_type
+            status: "SUCCESS",
+            msg: "User created successfully"
           });
         }
       } catch (error) {

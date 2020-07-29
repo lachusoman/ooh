@@ -27,6 +27,13 @@ const asset = {
   status: ACTIVE
 }
 
+const anotherAsset = {
+  name: "Flex",
+  dimension: "300*50",
+  location: "Front",
+  status: INACTIVE
+}
+
 const updated_asset = {
   name: "Screen",
   dimension: "300*50",
@@ -51,7 +58,7 @@ describe("Asset Flow", () => {
       .post(`${process.env.API_PREFIX}/user/login`)
       .send({ "email_id": user.email_id, "password": user.password })
       .then(async (login_res) => {
-        const token = JSON.parse(login_res.text).token;
+        const token = login_res.text;
         const shop_create_response = await request(app)
           .post(`${process.env.API_PREFIX}/shop`)
           .set("authorization", token)
@@ -63,6 +70,7 @@ describe("Asset Flow", () => {
 
             let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
             asset.shoppingcentreId = shops.id;
+            anotherAsset.shoppingcentreId = shops.id;
 
             const asset_create_response = await request(app)
               .post(`${process.env.API_PREFIX}/asset`)
@@ -74,6 +82,33 @@ describe("Asset Flow", () => {
               .get(`${process.env.API_PREFIX}/asset`)
               .set("authorization", token)
             expect(view_asset_response.statusCode).toEqual(200);
+
+            const viewAssets = JSON.parse(view_asset_response.text)
+            expect(viewAssets.count).toEqual(1);
+            expect(viewAssets.rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Board", "shoppingcentreId": 1, "status": "A" }));
+
+            await request(app)
+              .post(`${process.env.API_PREFIX}/asset`)
+              .set("authorization", token)
+              .send(anotherAsset);
+
+            const viewAllAssets = await request(app)
+              .get(`${process.env.API_PREFIX}/asset`)
+              .set("authorization", token)
+            expect(viewAllAssets.statusCode).toEqual(200);
+            expect(JSON.parse(viewAllAssets.text).count).toEqual(2);
+
+            const viewAssetByName = await request(app)
+              .get(`${process.env.API_PREFIX}/asset?asset_name=Board`)
+              .set("authorization", token)
+            expect(viewAssetByName.statusCode).toEqual(200);
+            expect(JSON.parse(viewAssetByName.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Board", "shoppingcentreId": 1, "status": "A" }));
+
+            const viewAssetByStatus = await request(app)
+              .get(`${process.env.API_PREFIX}/asset?asset_status=I`)
+              .set("authorization", token)
+            expect(viewAssetByStatus.statusCode).toEqual(200);
+            expect(JSON.parse(viewAssetByStatus.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 2, "location": "Front", "name": "Flex", "shoppingcentreId": 1, "status": "I" }));
 
             const assets = JSON.parse(view_asset_response.text).rows[ 0 ];
 

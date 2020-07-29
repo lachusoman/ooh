@@ -28,7 +28,6 @@ describe("User Flow", () => {
       .post(`${process.env.API_PREFIX}/user/login`)
       .send({ "email_id": user.email_id, "password": user.password });
     expect(res.statusCode).toEqual(500);
-    expect(res.text).toEqual("{\"error\":\"No such user or Incorrect Password\"}");
   });
 
   it("Create User", async () => {
