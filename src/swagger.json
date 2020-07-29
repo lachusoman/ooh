@@ -92,7 +92,7 @@
     },
     "/shop": {
       "post": {
-        "tags": ["ShoppingCentres"],
+        "tags": ["Shopping Centres"],
         "summary": "Insert Shopping centre details into system",
         "description": "This can only be done by the logged in user.",
         "operationId": "insertShop",
@@ -116,7 +116,7 @@
         }
       },
       "get": {
-        "tags": ["ShoppingCentres"],
+        "tags": ["Shopping Centres"],
         "summary": "Get all Shopping Centres in system",
         "description": "This can only be done by the logged in user.",
         "operationId": "viewShops",
@@ -149,7 +149,7 @@
     },
     "/shop/{shop_id}": {
       "put": {
-        "tags": ["Shopping Centre"],
+        "tags": ["Shopping Centres"],
         "summary": "Update Shopping Centres in system",
         "description": "This can only be done by the logged in user.",
         "operationId": "updateShops",
@@ -248,7 +248,7 @@
     },
     "/asset/{asset_id}": {
       "put": {
-        "tags": ["Asset"],
+        "tags": ["Assets"],
         "summary": "Update Assets in system",
         "description": "This can only be done by the logged in user.",
         "operationId": "updateShops",
@@ -273,6 +273,39 @@
             "description": "OK",
             "schema": {
               "$ref": "#/definitions/Assets"
+            }
+          }
+        }
+      }
+    },
+    "/audit": {
+      "get": {
+        "tags": ["Audits"],
+        "summary": "View Audit Details",
+        "description": "This can only be done by Admin User",
+        "operationId": "viewAudit",
+        "produces": "application/xml,application/json",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": "true",
+            "description": "From Record",
+            "default": "0"
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": "true",
+            "description": "To Record",
+            "default": "10"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Shops"
             }
           }
         }
