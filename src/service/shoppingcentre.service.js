@@ -1,8 +1,9 @@
 const models = require("../models");
 const Shop = models.shoppingcentres;
+const Audit = models.audit;
 exports.shopcntrInsert = async function (shopDetails, callback) {
   try {
-    const shop = await Shop.create(shopDetails);
+    auditedTxn((transaction) => Shop.create(shopDetails, { transaction }), 'ShoppingCentre_Create');
     if (shop) {
       callback(null, {
         status: "Shopping Centre Details Created Successfully",
@@ -11,6 +12,27 @@ exports.shopcntrInsert = async function (shopDetails, callback) {
     }
   } catch (error) {
     callback(error);
+  }
+}
+
+async function auditedTxn(operation, entity) {
+  let transaction;
+  try {
+    transaction = await sequelize.transaction();
+    const shop_created = await operation(transaction);
+    console.log(`created::${JSON.stringify(shop_created)}`);
+    await transaction.commit();
+    // const  auditDetails={
+    //   entity,
+    //   entity_id:
+    // }
+    // await Audit.create()
+    // insert into audit table with entity
+    // commit
+  } catch (error) {
+    // transaction rollback
+    console.log(error);
+    await transaction.rollback();
   }
 }
 
@@ -33,7 +55,9 @@ exports.shopcntrGetAll = async function ({ from, to }, callback) {
 };
 
 exports.shopcntrUpdate = async function ({ shop_id }, { name, address }, callback) {
+  let transaction = null;
   try {
+    transaction = await sequelize.transaction();
     await Shop.findOne({ where: { id: shop_id } })
       .then(async shop => {
         if (shop) {
