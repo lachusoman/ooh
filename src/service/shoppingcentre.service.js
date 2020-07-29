@@ -14,7 +14,10 @@ exports.shopcntrInsert = async function (shopDetails, user_id, callback) {
       });
     }
   } catch (error) {
-    callback(error);
+    callback({
+      msg: error.name === 'SequelizeDatabaseError' ? 'Shop ID provided does not exist' : errorMsg,
+      error
+    });
   }
 }
 
@@ -28,8 +31,10 @@ exports.shopcntrGetAll = async function ({ from, to }, callback) {
     }).then((shopDetails) => {
       callback(null, shopDetails)
     }).catch(error => {
-      console.log(`View ShoppingCentre catch: ${JSON.stringify(error)} `);
-      callback(error);
+      callback({
+        msg: error.name === 'SequelizeDatabaseError' ? 'Searched Shoppingcentre does not exist' : errorMsg,
+        error
+      });
     })
   } catch (error) {
     callback(error);
@@ -40,7 +45,7 @@ exports.shopcntrUpdate = async function ({ shop_id, name, address }, user_id, ca
   try {
     const shop = await Shop.findOne({ where: { id: shop_id } })
     if (!shop) {
-      return callback('Shopping Centre ID does not exist');
+      return callback({ msg: 'Shopping Centre ID does not exist' });
     }
     const operation = (transaction) => {
       Shop.update({ name, address }, { where: { id: shop_id }, transaction });
@@ -54,7 +59,9 @@ exports.shopcntrUpdate = async function ({ shop_id, name, address }, user_id, ca
       });
     }
   } catch (error) {
-    console.log(`Update ShoppingCentre Error:${error}`);
-    callback(error);
+    callback({
+      msg: error.name,
+      error
+    });
   }
 };

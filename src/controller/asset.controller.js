@@ -15,7 +15,7 @@ router.post("/", auth, validateAsset(), function (req, res) {
             if (result) {
                 res.status(201).send(result);
             } else {
-                console.log(`Internal Error:${JSON.stringify(error)}`);
+                console.log(`Create Asset Error:${JSON.stringify(error)}`);
                 res.status(400).send(error.msg);
             }
         });

@@ -15,7 +15,8 @@ router.post("/", auth, validateShoppingCentre(), function (req, res) {
             if (result) {
                 res.status(201).send(result);
             } else {
-                res.status(400).send(error);
+                console.log(`Create ShoppingCentre Error:${JSON.stringify(error)}`);
+                res.status(400).send(error.msg);
             }
         });
     }
@@ -27,7 +28,7 @@ router.get("/", auth, (req, res) => {
             res.send(result);
         } else {
             console.error(`Error: ${JSON.stringify(error)}`);
-            res.status(400).send({ message: error.errors });
+            res.status(400).send({ message: error.msg });
         }
     });
 });
@@ -45,7 +46,7 @@ router.put("/:shop_id", auth, validateShoppingCentre(), (req, res) => {
                 res.status(201).json(result);
             } else {
                 console.error(`Error: ${JSON.stringify(error)}`);
-                res.status(400).send({ message: error });
+                res.status(400).send({ message: error.msg });
             }
         });
     }

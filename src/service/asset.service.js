@@ -15,7 +15,6 @@ exports.assetInsert = async function (assetDetails, user_id, callback) {
       });
     }
   } catch (e) {
-    console.log(`Error:${e}`)
     callback({
       msg: e.name === 'SequelizeForeignKeyConstraintError' ? 'Shop ID provided does not exist' : errorMsg,
       error: e
