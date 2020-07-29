@@ -40,10 +40,9 @@ router.put("/:shop_id", auth, validateShoppingCentre(), (req, res) => {
         shopcntrUpdate(req.params, req.body, (error, result) => {
             if (result) {
                 res.status(201).json(result);
-            }
-            else {
+            } else {
                 console.error(`Error: ${JSON.stringify(error)}`);
-                res.status(400).send({ message: error.errors });
+                res.status(400).send({ message: error });
             }
         });
     }

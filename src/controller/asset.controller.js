@@ -15,7 +15,8 @@ router.post("/", auth, validateAsset(), function (req, res) {
                 res.status(201).send(result);
             }
             else {
-                res.status(400).send(error);
+                console.log(`Internal Error:${JSON.stringify(error)}`);
+                res.status(400).send(error.msg);
             }
         });
     }
@@ -43,7 +44,7 @@ router.put("/:asset_id", auth, validateAsset(), (req, res) => {
             }
             else {
                 console.error(`Error: ${JSON.stringify(error)}`);
-                res.status(400).send({ message: error.errors });
+                res.status(400).send({ message: error });
             }
         });
     }
