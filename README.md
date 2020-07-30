@@ -15,28 +15,46 @@ This service is used to the product management team maintain records of where ph
 "first_name":"User",
 "last_name":"1",
 "user_type": "U",
-"contact_no": "+61000000000",
-"dob":"1970-01-01",
+"contact_no": "000000000",
+"dob":"1990-01-01",
 "address":"Sydney,Australia"
 }
 ```
 
-### input for authentication
+#### Create Admin:
+
+```
+{
+"email_id": "admin@ooh.com",
+"password":"admin",
+"first_name":"Admin",
+"last_name":"oOh",
+"user_type": "A",
+"contact_no": "000000000",
+"dob":"1990-01-01",
+"address":"Sydney,Australia"
+}
+```
+
+### Login User
 
 ```
 {"email_id":"user@ooh.com","password":"u123"}
 
 ```
 
-### input for Shopping Centre
+### Input for Create Shopping Centre
 
+```
 {
 "name":"WestField",
 "address":"Parramatta"
 }
+```
 
-### input for Assets
+### Input for Create Asset
 
+```
 {
 "name":"Screen 1",
 "dimension" : "300 \* 300",
@@ -44,8 +62,48 @@ This service is used to the product management team maintain records of where ph
 "status" : "active",
 "shoppingcentreId":1
 }
+```
+
+### User Operations
+
+```
+Create User
+User Login
+```
+
+### Shopping Centre Operations
+
+```
+Create Shopping Centre
+View Shopping Centres
+Update Shopping Centre
+```
+
+### Asset Operations
+
+```
+Create Asset
+View All Assets
+View Assets By Name or By Status
+Update Asset
+
+```
+
+### Audit Operations
+
+```
+View Audit details
+ Only Admin can view the Audit details
+ Used to track which user makes changes to the data
+
+```
 
 Notes:
+
+how to login?
+copy token and paste in header.
+
+Shoppingcentre,asset ID is used to update.
 
 express-validor
 Validation errors: [{"msg":"Please provide name","param":"name","location":"body"},{"msg":"Please provide address","param":"address","location":"body"}]
