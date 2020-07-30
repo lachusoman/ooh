@@ -3,8 +3,7 @@
 ## Overview
 
 `oOh! Shopping Centre Inventory Management System` is used to the product management team maintain records of where physical display panels are installed in shopping centres.
-
-## Tools Used
+In a microservice environment I would have used the `decomposed by sub-domain` or `business capabilities` to arrive at service context boundary. However for simplicity sake they were developed into one service.
 
 ## Installation
 
