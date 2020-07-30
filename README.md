@@ -142,7 +142,7 @@ Then,
 "dimension" : "300 * 300",
 "location": "front",
 "status" : "active",
-"shoppingcentreId":1
+"shoppingcentreid":1
 }
 ```
 

@@ -1,5 +1,6 @@
 const models = require("../models");
 const Shop = models.shoppingcentres;
+const sequelize = models.sequelize;
 const { auditedTxn } = require("../utility/audit.util");
 exports.shopcntrInsert = async function (shopDetails, user_id, callback) {
   try {
@@ -25,18 +26,31 @@ exports.shopcntrGetAll = async function ({ from, to }, callback) {
   const to_record = to || 50;
   const offset = from || 0;
   const limit = Math.min(25, to_record - offset);
+  const select_query = `select s.id as shopid, s.name as shopname ,s.address,a.name as assetname ,a.location,a.status from shoppingcentres s right outer join assets a on s.id=a.shoppingcentreid limit ${limit}  offset ${offset}`;
+  console.log(`select query:${select_query}`);
   try {
-    await Shop.findAndCountAll({
-      limit, offset, order: [ [ 'id', 'ASC' ] ]
-    }).then((shopDetails) => {
-      callback(null, shopDetails)
-    }).catch(error => {
-      callback({
-        msg: error.name === 'SequelizeDatabaseError' ? 'Searched Shoppingcentre does not exist' : errorMsg,
-        error
-      });
+    const shopDetails = await sequelize.query(select_query, {
+      type: Shop.SELECT
     })
+
+    const shopResult = {};
+    shopDetails[ 0 ].forEach(shopDetail => {
+      const shopid = shopDetail.shopid;
+      if (!shopResult[ shopid ]) {
+        shopResult[ shopid ] = {};
+        shopResult[ shopid ].shopname = shopDetail.shopname;
+        shopResult[ shopid ].address = shopDetail.address;
+        shopResult[ shopid ].assets = [];
+      }
+      shopResult[ shopid ].assets.push({
+        assetname: shopDetail.assetname,
+        location: shopDetail.location,
+        status: shopDetail.status
+      });
+    });
+    callback(null, shopResult);
   } catch (error) {
+    console.log(`Error: ${error}`);
     callback(error);
   }
 };

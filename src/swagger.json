@@ -191,7 +191,7 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Asset Name,Dimension,Location,Status(A for Active & I for Inactive) and Associated ShoppingCentre ID \n e.g.\n { \"name\": \"Screen 1\", \"dimension\": \"300 * 300\", \"location\": \"front\", \"status\": \"A\", \"shoppingcentreId\": 1 } ",
+            "description": "Enter Asset Name,Dimension,Location,Status(A for Active & I for Inactive) and Associated ShoppingCentre ID \n e.g.\n { \"name\": \"Screen 1\", \"dimension\": \"300 * 300\", \"location\": \"front\", \"status\": \"A\", \"shoppingcentreid\": 1 } ",
             "default": {}
           }
         ],
@@ -264,7 +264,7 @@
             "name": "body",
             "in": "body",
             "required": "true",
-            "description": "Enter Asset Details to be updated \ne.g.\n {\"name\":\"Screen 1\",\"dimension\" : \"300 * 300\",\"location\": \"front\", \"status\" : \"active\", \"shoppingcentreId\":1 }",
+            "description": "Enter Asset Details to be updated \ne.g.\n {\"name\":\"Screen 1\",\"dimension\" : \"300 * 300\",\"location\": \"front\", \"status\" : \"active\", \"shoppingcentreid\":1 }",
             "default": {}
           }
         ],

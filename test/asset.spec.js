@@ -75,8 +75,8 @@ describe("Asset Flow", () => {
               .set("authorization", token);
             expect(view_shop_response.statusCode).toEqual(200);
             let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
-            asset.shoppingcentreId = shops.id;
-            anotherAsset.shoppingcentreId = shops.id;
+            asset.shoppingcentreid = shops.id;
+            anotherAsset.shoppingcentreid = shops.id;
 
             // create an ASSET for above SHOPPING CENTRE
             const asset_create_response = await request(app)
@@ -92,7 +92,7 @@ describe("Asset Flow", () => {
             expect(view_asset_response.statusCode).toEqual(200);
             const viewAssets = JSON.parse(view_asset_response.text)
             expect(viewAssets.count).toEqual(1);
-            expect(viewAssets.rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Board", "shoppingcentreId": 1, "status": "A" }));
+            expect(viewAssets.rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Board", "shoppingcentreid": 1, "status": "A" }));
 
             // creating a second ASSET
             await request(app)
@@ -112,14 +112,14 @@ describe("Asset Flow", () => {
               .get(`${process.env.API_PREFIX}/asset?asset_name=Board`)
               .set("authorization", token)
             expect(viewAssetByName.statusCode).toEqual(200);
-            expect(JSON.parse(viewAssetByName.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Board", "shoppingcentreId": 1, "status": "A" }));
+            expect(JSON.parse(viewAssetByName.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Board", "shoppingcentreid": 1, "status": "A" }));
 
             // Verify fetching the ASSET By Status
             const viewAssetByStatus = await request(app)
               .get(`${process.env.API_PREFIX}/asset?asset_status=I`)
               .set("authorization", token)
             expect(viewAssetByStatus.statusCode).toEqual(200);
-            expect(JSON.parse(viewAssetByStatus.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 2, "location": "Front", "name": "Flex", "shoppingcentreId": 1, "status": "I" }));
+            expect(JSON.parse(viewAssetByStatus.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 2, "location": "Front", "name": "Flex", "shoppingcentreid": 1, "status": "I" }));
 
             // Update the first ASSET Created
             const assets = JSON.parse(view_asset_response.text).rows[ 0 ];
@@ -133,7 +133,7 @@ describe("Asset Flow", () => {
             const view_asset = await request(app)
               .get(`${process.env.API_PREFIX}/asset`)
               .set("authorization", token)
-            expect(JSON.parse(view_asset.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Screen", "shoppingcentreId": 1, "status": "A" }));
+            expect(JSON.parse(view_asset.text).rows[ 0 ]).toEqual(expect.objectContaining({ "dimension": "300*50", "id": 1, "location": "Front", "name": "Screen", "shoppingcentreid": 1, "status": "A" }));
           })
       });
   });

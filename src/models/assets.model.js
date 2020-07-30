@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         dimension: { type: DataTypes.STRING, allowNull: false },
         location: { type: DataTypes.STRING, allowNull: false },
         status: { type: DataTypes.ENUM(ACTIVE, INACTIVE), allowNull: false },
-        shoppingcentreId: { type: DataTypes.INTEGER, allowNull: false }
+        shoppingcentreid: { type: DataTypes.INTEGER, allowNull: false }
     });
     assets.associate = function (models) {
         assets.belongsTo(models.shoppingcentres);
