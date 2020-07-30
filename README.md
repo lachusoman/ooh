@@ -156,22 +156,29 @@ Then,
 
 Used to track which user makes changes to the data
 `Only Admin can view the Audit details`
+
+as non admin user
 ![Admin only](https://github.com/lachusoman/ooh/blob/master/screenshots/16%20auditonlyadmin.png?raw=true)
 
-Notes:
-Shoppingcentre,asset ID is used to update.
+as admin user,
+![Admin only](https://github.com/lachusoman/ooh/blob/master/screenshots/17%20audit.png?raw=true)
 
-express-validor
+# Notes:
+
+- Currently the view/edit user functionality isn't implemented for simplicity (and security due to public endpoint on cloud)
+
+- express-validator : default express validator message is used for simplicity. e.g.
+
+```
 Validation errors: [{"msg":"Please provide name","param":"name","location":"body"},{"msg":"Please provide address","param":"address","location":"body"}]
+```
 
-Logger could have used Bunyan instead
+- Logging could have used Bunyan instead of console.log which was done for simplicity and time constraints.
 
-Negative cases in testing
-End to End testing only done.
+- Only positive testcases were written. Negative cases were tested in End to End testing. Please let me know if you want negative testcases included.
 
-health endpoint for load balancer.
+- health endpoint for a load balancer if one is required in the future.
 
-number of parameters will
+- update operations currently updates all attributes mandatory for simplicity sake and easiness of explaination.
 
-update requires all attributes mandatory. explain why.
-explain why testcases are large. ideally would be doing like user.spec.js
+- Testcases are more integration in nature this is to make the flow clear. Unit testcases were not commited due to later changes and for simplicity sake. Please let me know if that is expected.
