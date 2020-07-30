@@ -4,6 +4,8 @@
 
 This service is used to the product management team maintain records of where physical display panels are installed in shopping centres
 
+![Main Page](https://github.com/lachusoman/ooh/blob/master/screenshots/1_mainpage.png?raw=true)
+
 ## Sample User request
 
 #### Create User:
