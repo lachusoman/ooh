@@ -109,7 +109,7 @@ Then,
 
 # 9. Create Shopping Center
 
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
+![create shopping](https://github.com/lachusoman/ooh/blob/master/screenshots/9%20createshoppingcenter.png?raw=true)
 
 ### Input for Create Shopping Centre
 
@@ -122,15 +122,15 @@ Then,
 
 # 10. View the created Shopping Centers
 
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
+![view shopping center](https://github.com/lachusoman/ooh/blob/master/screenshots/10%20viewshoppingcenter.png?raw=true)
 
 # 11 Update Shopping Centre
 
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
+![updateshoppingcenter](https://github.com/lachusoman/ooh/blob/master/screenshots/15%20updateasset.png?raw=true)
 
 # 12. Create Asset.
 
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
+![createasset](https://github.com/lachusoman/ooh/blob/master/screenshots/12%20createasset.png?raw=true)
 
 ### Input for Create Asset
 
@@ -144,25 +144,19 @@ Then,
 }
 ```
 
-# 13. View Created All Assets
+# 13. View Created Assets or search by name/status etc
 
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
-
-### Shopping Centre Operations
-
-# 14. View Created Assets By Name or Status
-
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
+![view asset](https://github.com/lachusoman/ooh/blob/master/screenshots/13%20viewasset.png?raw=true)
 
 # 15. Update Assets
 
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
+![update asset](https://github.com/lachusoman/ooh/blob/master/screenshots/15%20updateasset.png?raw=true)
 
 # 16. Audit Operations
 
 Used to track which user makes changes to the data
 `Only Admin can view the Audit details`
-![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
+![Admin only](https://github.com/lachusoman/ooh/blob/master/screenshots/16%20auditonlyadmin.png?raw=true)
 
 Notes:
 Shoppingcentre,asset ID is used to update.
