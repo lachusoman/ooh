@@ -107,8 +107,6 @@ Then,
 
 ```
 
-# Change from here..............
-
 # 9. Create Shopping Center
 
 ![Authorize Step 2](https://github.com/lachusoman/ooh/blob/master/screenshots/5%20authorize.png?raw=true)
