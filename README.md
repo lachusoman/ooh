@@ -5,7 +5,13 @@
 `oOh! Shopping Centre Inventory Management System` is used to the product management team maintain records of where physical display panels are installed in shopping centres.
 In a microservice environment I would have used the `decomposed by sub-domain` or `business capabilities` to arrive at service context boundary. However for simplicity sake they were developed into one service.
 
-## Installation
+# ON CLOUD: http://13.211.29.24/api-docs/#/
+
+Please use this to play around with the SAAS version of `oOh! Shopping Centre Inventory Management System`
+
+Alternately,
+
+## Installation on local
 
 Following are the steps to get started with `oOh! Shopping Centre Inventory Management System`
 
@@ -46,6 +52,7 @@ $ npm run dev
 
 # 5. Swagger UI:
 
+Alternately if you want to install on your local
 on a browser goto: http://localhost:3003/api-docs/
 ![Main Page](https://github.com/lachusoman/ooh/blob/master/screenshots/1_mainpage.png?raw=true)
 
@@ -146,6 +153,7 @@ Then,
 # 13. View Created Assets or search by name/status etc
 
 ![view asset](https://github.com/lachusoman/ooh/blob/master/screenshots/13%20viewasset.png?raw=true)
+`Note: there is a typo - Please enter associated shopping center should have been Please enter asset status`
 
 # 15. Update Assets
 
