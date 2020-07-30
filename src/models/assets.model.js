@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
         shoppingcentreid: { type: DataTypes.INTEGER, allowNull: false }
     });
     assets.associate = function (models) {
-        assets.belongsTo(models.shoppingcentres);
+        assets.belongsTo(models.shoppingcentres, { foreignKey: 'shoppingcentreid' });
     };
     return assets;
 };

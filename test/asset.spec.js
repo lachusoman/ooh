@@ -16,6 +16,7 @@ const user = {
   address: "NSW,Sydney"
 }
 const shop = {
+  id: 1,
   name: "Westfield",
   address: "Parramatta"
 }
@@ -24,21 +25,24 @@ const asset = {
   name: "Board",
   dimension: "300*50",
   location: "Front",
-  status: ACTIVE
+  status: ACTIVE,
+  shoppingcentreid: 1
 }
 
 const anotherAsset = {
   name: "Flex",
   dimension: "300*50",
   location: "Front",
-  status: INACTIVE
+  status: INACTIVE,
+  shoppingcentreid: 1
 }
 
 const updated_asset = {
   name: "Screen",
   dimension: "300*50",
   location: "Front",
-  status: ACTIVE
+  status: ACTIVE,
+  shoppingcentreid: 1
 }
 
 describe("Asset Flow", () => {
@@ -74,9 +78,6 @@ describe("Asset Flow", () => {
               .get(`${process.env.API_PREFIX}/shop`)
               .set("authorization", token);
             expect(view_shop_response.statusCode).toEqual(200);
-            let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
-            asset.shoppingcentreid = shops.id;
-            anotherAsset.shoppingcentreid = shops.id;
 
             // create an ASSET for above SHOPPING CENTRE
             const asset_create_response = await request(app)

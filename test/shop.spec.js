@@ -1,8 +1,9 @@
 const request = require("supertest");
 const app = require("../src/app");
 const models = require("../src/models")
-const { roles } = require("../src/constants/constants");
+const { roles, status } = require("../src/constants/constants");
 const { USER } = roles;
+const { ACTIVE, INACTIVE } = status;
 const user = {
     email_id: "user@ooh.com",
     password: "user123",
@@ -15,15 +16,34 @@ const user = {
 }
 
 const shop = {
+    id: 1,
     name: "Westfield",
     address: "Parramatta"
 }
 
 const updated_shop = {
+    id: 1,
     name: "Westfield",
     address: "Town Hall"
 }
 
+const asset = {
+    id: 1,
+    name: "Board",
+    dimension: "300*50",
+    location: "Front",
+    status: ACTIVE,
+    shoppingcentreid: 1
+}
+
+const anotherAsset = {
+    id: 2,
+    name: "Flex",
+    dimension: "300*50",
+    location: "Front",
+    status: INACTIVE,
+    shoppingcentreid: 1
+}
 describe("Shopping Centre Flow", () => {
     beforeAll(async () => {
         await models.sequelize.sync();
@@ -61,13 +81,31 @@ describe("Shopping Centre Flow", () => {
                     .set("authorization", token)
                 expect(view_shop_response.statusCode).toEqual(200);
                 const viewShop = JSON.parse(view_shop_response.text)
-                expect(viewShop.count).toEqual(1);
-                expect(viewShop.rows[ 0 ]).toEqual(expect.objectContaining({ "address": "Parramatta", "id": 1, "name": "Westfield" }));
+                expect(viewShop).toEqual(expect.objectContaining({ "1": { "address": "Parramatta", "assets": [], "shopid": 1, "shopname": "Westfield" } }));
+
+                // Create two Assets associated with the above created Shopping Centre
+                const asset_create_response = await request(app)
+                    .post(`${process.env.API_PREFIX}/asset`)
+                    .set("authorization", token)
+                    .send(asset);
+                expect(asset_create_response.statusCode).toEqual(201);
+
+                await request(app)
+                    .post(`${process.env.API_PREFIX}/asset`)
+                    .set("authorization", token)
+                    .send(anotherAsset);
+
+                // Verify the shopping center with the assets associated with it
+                const viewShopsWithAssetsResponse = await request(app)
+                    .get(`${process.env.API_PREFIX}/shop`)
+                    .set("authorization", token)
+                expect(viewShopsWithAssetsResponse.statusCode).toEqual(200);
+                const viewShopWithAssets = JSON.parse(viewShopsWithAssetsResponse.text)
+                expect(viewShopWithAssets).toEqual(expect.objectContaining({ "1": { "address": "Parramatta", "assets": [ { "assetname": "Board", "location": "Front", "status": "A" }, { "assetname": "Flex", "location": "Front", "status": "I" } ], "shopid": 1, "shopname": "Westfield" } }));
 
                 // Update the shopping centre
-                let shops = JSON.parse(view_shop_response.text).rows[ 0 ];
                 const shop_update_response = await request(app)
-                    .put(`${process.env.API_PREFIX}/shop/${shops.id}`)
+                    .put(`${process.env.API_PREFIX}/shop/1`)
                     .set("authorization", token)
                     .send(updated_shop)
                 expect(shop_update_response.statusCode).toEqual(201);
@@ -78,8 +116,7 @@ describe("Shopping Centre Flow", () => {
                     .set("authorization", token)
                 expect(view_udpated_shop_response.statusCode).toEqual(200);
                 const viewUpdatedShop = JSON.parse(view_udpated_shop_response.text)
-                expect(viewUpdatedShop.count).toEqual(1);
-                expect(viewUpdatedShop.rows[ 0 ]).toEqual(expect.objectContaining({ "address": "Town Hall", "id": 1, "name": "Westfield" }));
+                expect(viewUpdatedShop).toEqual(expect.objectContaining({ "1": { "address": "Town Hall", "assets": [ { "assetname": "Board", "location": "Front", "status": "A" }, { "assetname": "Flex", "location": "Front", "status": "I" } ], "shopid": 1, "shopname": "Westfield" } }));
             });
     })
 });
