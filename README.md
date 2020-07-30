@@ -52,7 +52,6 @@ $ npm run dev
 
 # 5. Swagger UI:
 
-Alternately if you want to install on your local
 on a browser goto: http://localhost:3003/api-docs/
 ![Main Page](https://github.com/lachusoman/ooh/blob/master/screenshots/1_mainpage.png?raw=true)
 
